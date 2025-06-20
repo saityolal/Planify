@@ -35,7 +35,8 @@ export default function TodoApp() {
                   <WelcomeComponent />
                 </AuthenticatedRoute>
               }
-            /><Route
+            />
+            <Route
               path="/welcome"
               element={
                 <AuthenticatedRoute>
@@ -44,7 +45,7 @@ export default function TodoApp() {
               }
             />
             {/* <Route path="/welcome" element={<WelcomeComponent />} /> */}
-            
+
             <Route
               path="/todos"
               element={

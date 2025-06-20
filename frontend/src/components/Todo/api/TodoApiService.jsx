@@ -2,16 +2,12 @@
 import { apiClient } from "./apiClient";
 
 
-export function retrieveUsers() {
-  return apiClient.get("http://localhost:8080/users");
-}
+// export function retrieveUsers() {
+//   return apiClient.get("http://localhost:8080/users");
+// }
 
 export const retrieveAllTodosWithUserNameApi = (username) =>
-  apiClient.get(`/users/${username}/todos`, {
-    headers: {
-      Authorization: "Basic YWRtaW46YWRtaW4",
-    },
-  });
+  apiClient.get(`/users/${username}/todos`);
 
 
 export const deleteTodoApi = (username, id) =>

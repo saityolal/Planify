@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloWorldController {
 
+    @GetMapping(path = "/")
+    public String returnSomethingAtRootUrl() {
+        return "Hello World";
+    }
+
     @GetMapping(path = "/basicauth")
     public String basicAuthCheck() {
         return "Success";
@@ -15,7 +20,7 @@ public class HelloWorldController {
 
     } @GetMapping(path = "/hello-world")
     public String helloWorld() {
-        return "Hello World";
+        return "Hello Worldv2";
     }
 
     @GetMapping(path = "/hello-world-bean")
