@@ -20,7 +20,7 @@ function HeaderComponent() {
           <nav className="navbar navbar-expand-lg">
             <a
               className="navbar-brand ms-2 fs-4 fw-bold text-black d-flex align-items-center"
-              href="https://github.com/saityolal"
+              href="https://github.com/saityolal/planify"
             >
               <span className="brand-mark">P</span>
               Planify
@@ -29,7 +29,7 @@ function HeaderComponent() {
               <ul className="navbar-nav">
                 <li className="nav-item fs-5">
                   {isAuthenticated && (
-                  <Link className="nav-link fw-semibold" to="/welcome">
+                    <Link className="nav-link fw-semibold" to="/welcome">
                       Home
                     </Link>
                   )}
@@ -46,14 +46,21 @@ function HeaderComponent() {
             <ul className="navbar-nav">
               <li className="nav-item fs-5">
                 {!isAuthenticated && (
-                  <Link className="btn btn-outline-primary rounded-pill px-4" to="/login">
+                  <Link
+                    className="btn btn-outline-primary rounded-pill px-4"
+                    to="/login"
+                  >
                     Login
                   </Link>
                 )}
               </li>
               <li className="nav-item fs-5">
                 {isAuthenticated && (
-                  <Link className="btn btn-primary rounded-pill px-4" to="/logout" onClick={logout}>
+                  <Link
+                    className="btn btn-primary rounded-pill px-4"
+                    to="/logout"
+                    onClick={logout}
+                  >
                     Logout
                   </Link>
                 )}
