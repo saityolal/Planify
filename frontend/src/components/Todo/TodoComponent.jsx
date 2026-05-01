@@ -2,45 +2,54 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { createTodoApi, retrieveTodoApi, updateTodoApi } from "./api/TodoApiService";
 import { useAuth } from "./security/AuthContext";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import moment from "moment";
 
-export default function () {
+const NEW_TODO_ID = "-1";
+
+export default function TodoComponent() {
   const { id } = useParams();
   const navigate = useNavigate();
   const authContext = useAuth();
   const username = authContext.username;
+  const isNewTodo = id === NEW_TODO_ID;
 
   const [description, setDescription] = useState("");
   const [targetDate, setTargetDate] = useState("");
-  useEffect(() => retrieveTodo(), [id]); // [] to run the effect only once when the component mounts
+  const [done, setDone] = useState(false);
+  const [priority, setPriority] = useState("MEDIUM");
+  const [category, setCategory] = useState("");
 
-  function retrieveTodo() {
-    if (id !== -1) {
+  const retrieveTodo = useCallback(() => {
+    if (!isNewTodo) {
       retrieveTodoApi(username, id)
         .then((response) => {
           setDescription(response.data.description);
           setTargetDate(response.data.targetDate);
+          setDone(response.data.done);
+          setPriority(response.data.priority || "MEDIUM");
+          setCategory(response.data.category || "");
         })
         .catch((error) => console.error("Error:", error));
     }
-  }
+  }, [id, isNewTodo, username]);
+
+  useEffect(() => retrieveTodo(), [retrieveTodo]); // reload when route id changes
 
   function onSubmit(values) {
-    console.log(values);
     const todo = {
       // Field of the JSON object
-      id: id,
+      id: isNewTodo ? null : Number(id),
       username: username,
       description: values.description,
       targetDate: values.targetDate,
-      done: false,
+      done: values.done,
+      priority: values.priority,
+      category: values.category,
     };
-    console.log(todo);
 
-    if (id == -1) {
-      // Credate a new todo
+    if (isNewTodo) {
       createTodoApi(username, todo)
         .then((response) => {
           console.log(response);
@@ -71,12 +80,13 @@ export default function () {
     return errors;
   }
   return (
-    <div className="container">
-      <h1>Todo Component</h1>
-      <div>
+    <div className="container form-page">
+      <div className="app-card form-card">
+        <p className="text-primary fw-semibold mb-2">{isNewTodo ? "New task" : "Edit task"}</p>
+        <h1 className="fw-bold mb-4">{isNewTodo ? "Create a todo" : "Update your todo"}</h1>
         {/* We need to pass the initialValues here and reinitialize to true to refresh the form */}
         <Formik
-          initialValues={{ description, targetDate }}
+          initialValues={{ description, targetDate, done, priority, category }}
           enableReinitialize={true}
           onSubmit={onSubmit}
           validate={validate}
@@ -97,19 +107,47 @@ export default function () {
                 className="alert alert-warning"
               />
               <fieldset className="form-group">
-                <label>Description</label>
+                <label className="form-label fw-semibold">Description</label>
                 <Field
                   type="text"
                   className="form-control"
                   name="description"
                 />
               </fieldset>
-              <fieldset className="form-group">
-                <label>Target Date</label>
+              <fieldset className="form-group mt-3">
+                <label className="form-label fw-semibold">Target Date</label>
                 <Field type="date" className="form-control" name="targetDate" />
               </fieldset>
+              <fieldset className="form-group mt-3">
+                <label className="form-label fw-semibold">Priority</label>
+                <Field as="select" className="form-control" name="priority">
+                  <option value="LOW">Low</option>
+                  <option value="MEDIUM">Medium</option>
+                  <option value="HIGH">High</option>
+                </Field>
+              </fieldset>
+              <fieldset className="form-group mt-3">
+                <label className="form-label fw-semibold">Category</label>
+                <Field
+                  type="text"
+                  className="form-control"
+                  name="category"
+                  placeholder="Work, Personal, Learning..."
+                />
+              </fieldset>
+              <fieldset className="form-check mt-3">
+                <Field
+                  type="checkbox"
+                  className="form-check-input"
+                  name="done"
+                  id="done"
+                />
+                <label className="form-check-label" htmlFor="done">
+                  Completed
+                </label>
+              </fieldset>
               <div>
-                <button className="btn btn-success m-5 " type="submit">
+                <button className="btn btn-primary rounded-pill px-5 mt-4" type="submit">
                   Save
                 </button>
               </div>

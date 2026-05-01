@@ -23,8 +23,6 @@ function LoginComponent() {
   }
 
   async function handleSubmit() {
-    console.log("Username:", username);
-    console.log("Password:", password);
     if (await authContext.login(username, password)) {
       navigate(`/welcome/${username}`);
     } else {
@@ -33,28 +31,37 @@ function LoginComponent() {
   }
 
   return (
-    <div className="Login">
-      {showErrorMessage && <div className="errorMessage">Login Failed</div>}
-      <div className="LoginForm">
-        <div>
-          <label>User Name:</label>
+    <div className="login-page">
+      <div className="app-card login-card">
+        <p className="text-primary fw-semibold mb-2">Welcome back</p>
+        <h1 className="login-title">Plan your day with Planify</h1>
+        <p className="login-subtitle">
+          Track priorities, categories, and due dates from one clean workspace.
+        </p>
+        {showErrorMessage && (
+          <div className="alert alert-danger">Login failed. Please try again.</div>
+        )}
+        <div className="mb-3">
+          <label className="form-label fw-semibold">User Name</label>
           <input
             type="text"
             name="username"
+            className="form-control form-control-lg"
             value={username}
             onChange={handleUsernameChange}
           />
         </div>
-        <div>
-          <label>Password:</label>
+        <div className="mb-4">
+          <label className="form-label fw-semibold">Password</label>
           <input
             type="password"
+            className="form-control form-control-lg"
             value={password}
             onChange={handlepasswordChange}
           />
         </div>
-        <div>
-          <button type="button" onClick={handleSubmit}>
+        <div className="d-grid">
+          <button className="btn btn-primary btn-lg rounded-pill" type="button" onClick={handleSubmit}>
             Login
           </button>
         </div>

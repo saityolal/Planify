@@ -1,9 +1,234 @@
-label, input, button{
-    margin: 10px;
-    padding: 5px;
+.TodoApp {
+    min-height: 100vh;
 }
 
-footer{
+.app-header {
+    backdrop-filter: blur(14px);
+    background: rgba(255, 255, 255, 0.82);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+}
+
+.brand-mark {
+    align-items: center;
+    background: linear-gradient(135deg, #4f46e5, #06b6d4);
+    border-radius: 16px;
+    color: white;
+    display: inline-flex;
+    font-weight: 800;
+    height: 42px;
+    justify-content: center;
+    margin-right: 12px;
+    width: 42px;
+}
+
+.app-card {
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.10);
+}
+
+.login-page {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: calc(100vh - 130px);
+    padding: 24px;
+}
+
+.login-card {
+    max-width: 460px;
+    padding: 36px;
+    text-align: left;
+    width: 100%;
+}
+
+.login-title {
+    color: #0f172a;
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.login-subtitle {
+    color: #64748b;
+    margin-bottom: 28px;
+}
+
+.welcome-page {
+    padding-bottom: 56px;
+}
+
+.welcome-hero {
+    overflow: hidden;
+    padding: 44px;
+    position: relative;
+}
+
+.welcome-hero::after {
+    background: radial-gradient(circle, rgba(79, 70, 229, 0.16), transparent 65%);
+    content: "";
+    height: 360px;
+    position: absolute;
+    right: -120px;
+    top: -120px;
+    width: 360px;
+}
+
+.welcome-title {
+    color: #0f172a;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-weight: 850;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+}
+
+.welcome-subtitle {
+    color: #64748b;
+    font-size: 1.08rem;
+    line-height: 1.7;
+    margin: 20px 0 30px;
+    max-width: 680px;
+}
+
+.welcome-summary-card {
+    background: linear-gradient(145deg, #ffffff, #eef2ff);
+    border: 1px solid rgba(199, 210, 254, 0.7);
+    border-radius: 28px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 18px 45px rgba(79, 70, 229, 0.14);
+    padding: 34px;
+    position: relative;
+    text-align: left;
+    z-index: 1;
+}
+
+.welcome-summary-icon {
+    align-items: center;
+    background: linear-gradient(135deg, #4f46e5, #06b6d4);
+    border-radius: 22px;
+    color: white;
+    display: inline-flex;
+    font-size: 1.2rem;
+    font-weight: 900;
+    height: 70px;
+    justify-content: center;
+    width: 70px;
+}
+
+.quick-card {
+    height: 100%;
+    padding: 26px;
+    text-align: left;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.quick-card:hover {
+    box-shadow: 0 24px 70px rgba(15, 23, 42, 0.14);
+    transform: translateY(-4px);
+}
+
+.quick-card-label {
+    color: #4f46e5;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.quick-card h3 {
+    color: #0f172a;
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.quick-card p:last-child {
+    color: #64748b;
+    margin-bottom: 0;
+}
+
+.backend-message {
+    background: #ecfeff;
+    border: 1px solid #a5f3fc;
+    border-radius: 18px;
+    color: #155e75;
+    font-weight: 700;
+    padding: 18px 22px;
+    text-align: left;
+}
+
+.dashboard-card {
+    border: 0;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    color: #0f172a;
+}
+
+.todo-toolbar {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: 18px;
+    padding: 16px;
+}
+
+.todo-table {
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+.todo-table tbody tr {
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.todo-table td,
+.todo-table th {
+    border: 0;
+    vertical-align: middle;
+}
+
+.todo-table tbody td:first-child {
+    border-bottom-left-radius: 14px;
+    border-top-left-radius: 14px;
+}
+
+.todo-table tbody td:last-child {
+    border-bottom-right-radius: 14px;
+    border-top-right-radius: 14px;
+}
+
+.priority-pill {
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 6px 12px;
+}
+
+.priority-HIGH {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.priority-MEDIUM {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.priority-LOW {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.form-page {
+    padding-bottom: 48px;
+}
+
+.form-card {
+    margin: 0 auto;
+    max-width: 720px;
+    padding: 32px;
+    text-align: left;
+}
+
+footer {
     bottom: 0;
     position: absolute;
     width: 100%;

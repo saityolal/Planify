@@ -1,8 +1,5 @@
-import propTypes, { func } from "prop-types";
-import { useState } from "react";
+import propTypes from "prop-types";
 export default function CounterButton({by,incrementMethod,decrementMethod,}) {
-  const [count, setCount] = useState(0);
-
 //   function incrementCounterFunction() {
     
 //     incrementMethod(by);

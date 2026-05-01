@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class JwtAuthenticationController {
 
@@ -22,7 +24,7 @@ public class JwtAuthenticationController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<JwtTokenResponse> generateToken(
-            @RequestBody JwtTokenRequest jwtTokenRequest) {
+            @Valid @RequestBody JwtTokenRequest jwtTokenRequest) {
 
         var authenticationToken =
                 new UsernamePasswordAuthenticationToken(

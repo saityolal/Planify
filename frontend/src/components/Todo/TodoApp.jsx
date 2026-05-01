@@ -2,7 +2,6 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import "./TodoApp.css";
 import LogoutComponent from "./LogoutComponent";
-import FooterComponent from "./FooterComponent";
 import HeaderComponent from "./HeaderComponent";
 import WelcomeComponent from "./WelcomeComponent";
 import LoginComponent from "./LoginComponent";

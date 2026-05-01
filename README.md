@@ -1,70 +1,151 @@
-# Getting Started with Create React App
+# Planify
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Planify is a full-stack task planning application with a React frontend and Spring Boot backend.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- JWT login and protected todo routes.
+- Todo CRUD with description, target date, completion status, priority, and category.
+- Dashboard cards for total, completed, pending, overdue, and due-today todos.
+- Search, filter, sort, and quick completion toggle.
+- Polished Bootstrap-based UI for login, home, todo list, todo form, and logout screens.
+- Backend ownership checks, request validation, profile-based configuration, and focused tests.
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Frontend: React 18, Create React App, React Router, Axios, Formik, Bootstrap.
+- Backend: Java 21, Spring Boot 3.4, Spring Web, Spring Security, OAuth2 Resource Server JWT, Spring Data JPA.
+- Database: H2 in development, configurable datasource for production.
+- Tests: React Testing Library, Jest, Spring Boot Test, Spring Security Test.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Project Structure
 
-### `npm test`
+```text
+todo-app/
+  frontend/                         React application
+  backend/restfulwebservices/        Spring Boot API
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting Started
 
-### `npm run build`
+### Prerequisites
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Node.js and npm
+- Java 21
+- Maven is optional because the backend includes Maven Wrapper
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Backend
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```powershell
+cd backend/restfulwebservices
+.\mvnw.cmd spring-boot:run
+```
 
-### `npm run eject`
+Backend runs at:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```text
+http://localhost:5000
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Development profile uses H2 by default. H2 console:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```text
+http://localhost:5000/h2-console
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Frontend
 
-## Learn More
+```powershell
+cd frontend
+npm install
+npm.cmd start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Use `npm.cmd start` on Windows PowerShell if `npm start` is blocked by execution policy.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Frontend runs at:
 
-### Code Splitting
+```text
+http://localhost:3000
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Environment Variables
 
-### Analyzing the Bundle Size
+Frontend API base URL can be configured with:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```text
+REACT_APP_API_BASE_URL=http://localhost:5000
+```
 
-### Making a Progressive Web App
+See:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```text
+frontend/.env.example
+```
 
-### Advanced Configuration
+Backend supports these variables:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```text
+APP_CORS_ALLOWED_ORIGINS=http://localhost:3000
+APP_ADMIN_USERNAME=admin
+APP_ADMIN_PASSWORD=admin
+SPRING_DATASOURCE_URL=...
+SPRING_DATASOURCE_USERNAME=...
+SPRING_DATASOURCE_PASSWORD=...
+```
 
-### Deployment
+Default development login:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```text
+username: admin
+password: admin
+```
 
-### `npm run build` fails to minify
+## Useful Commands
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Frontend tests:
+
+```powershell
+cd frontend
+npm test -- --watchAll=false
+```
+
+Frontend production build:
+
+```powershell
+cd frontend
+npm run build
+```
+
+Backend tests:
+
+```powershell
+cd backend/restfulwebservices
+.\mvnw.cmd test
+```
+
+## API Overview
+
+Authentication:
+
+```text
+POST /authenticate
+```
+
+Todo endpoints:
+
+```text
+GET    /users/{username}/todos
+GET    /users/{username}/todos/{id}
+POST   /users/{username}/todos
+PUT    /users/{username}/todos/{id}
+DELETE /users/{username}/todos/{id}
+```
+
+All todo endpoints require a valid Bearer token. The backend checks that the path username matches the authenticated user.
+
+## Notes
+
+- `dev` profile is the default profile and uses in-memory H2.
+- `prod` profile expects external datasource and secret values from environment variables.
+- Do not commit real `.env` files or production secrets.

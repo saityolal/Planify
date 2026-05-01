@@ -1,5 +1,9 @@
 package com.restfulwebservices.jwt;
 
-public record JwtTokenRequest(String username, String password) {}
+import jakarta.validation.constraints.NotBlank;
+
+public record JwtTokenRequest(
+        @NotBlank(message = "Username is required") String username,
+        @NotBlank(message = "Password is required") String password) {}
 
 
